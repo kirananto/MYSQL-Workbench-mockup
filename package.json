@@ -3,9 +3,11 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@atlaskit/dynamic-table": "^10.0.13",
     "@atlaskit/icon": "^14.0.0",
     "@atlaskit/layer-manager": "^5.0.13",
     "@atlaskit/navigation": "^33.2.0",
+    "@atlaskit/page": "^8.0.5",
     "@atlaskit/tooltip": "^12.1.2",
     "@types/react-redux": "^6.0.9",
     "react": "^16.5.2",

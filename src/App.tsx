@@ -14,13 +14,14 @@ import EditorLayoutThreeEqualIcon from '@atlaskit/icon/glyph/editor/layout-three
 import TableIcon from '@atlaskit/icon/glyph/table';
 import ArrowLeftIcon from '@atlaskit/icon/glyph/arrow-left';
 import './App.css';
-
+import Content from './Content'
 class App extends React.Component<any, any> {
   constructor(props: {}) {
     super(props);
 
     this.state = {
       width: 304,
+      item: undefined,
       stack: [
         [
           {
@@ -47,6 +48,7 @@ class App extends React.Component<any, any> {
   public handleResize = (pr: { isOpen: boolean, width: number }) => this.setState(pr);
 
   public stackPush = (item: any) => {
+    console.log('item')
     const stack = [...this.state.stack, item];
     this.setState({ stack });
   };
@@ -54,7 +56,7 @@ class App extends React.Component<any, any> {
   public stackPop = () => {
     if (this.state.stack.length > 1) {
       const stack = this.state.stack.slice(0, this.state.stack.length - 1);
-      this.setState({ stack });
+      this.setState({ stack, item: undefined });
     }
   };
 
@@ -79,7 +81,7 @@ class App extends React.Component<any, any> {
   };
 
   public renderItem = (item: any) => {
-    const onClick = item.children && (() => this.stackPush(item.children));
+    const onClick = item.children ? (() => this.setState({ item: undefined }, () => this.stackPush(item.children))) : (() => this.setState({item}))
     let icon
     switch (item.type) {
       case 'database': icon = <TrayIcon label="db" />
@@ -125,9 +127,7 @@ class App extends React.Component<any, any> {
               onAnimationEnd={(...args: any[]) => console.log('animation end', args)}
             />
           </Navigation>
-          <div className="App">
-            <span />
-          </div>
+          <Content item={this.state.item}/>
         </div>
       </LayerManager>
     );

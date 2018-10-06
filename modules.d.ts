@@ -1,4 +1,6 @@
 declare module '@atlaskit/layer-manager'
 declare module '@atlaskit/navigation'
 declare module '@atlaskit/icon'
+declare module '@atlaskit/page'
 declare module '@atlaskit/tooltip'
+declare module '@atlaskit/dynamic-table'
