@@ -120,6 +120,7 @@ class App extends React.Component<any, any> {
             containerHeaderComponent={this.renderHeader}
           >
             <AkContainerNavigationNested
+              title="Schemas"
               stack={this.renderStack()}
               onAnimationEnd={(...args: any[]) => console.log('animation end', args)}
             />
