@@ -43,7 +43,7 @@
     "@atlaskit/theme" "^6.0.2"
     babel-runtime "^6.26.0"
 
-"@atlaskit/checkbox@^5.0.2":
+"@atlaskit/checkbox@^5.0.2", "@atlaskit/checkbox@^5.0.3":
   version "5.0.3"
   resolved "https://registry.yarnpkg.com/@atlaskit/checkbox/-/checkbox-5.0.3.tgz#a2df2a80161eb29ed6d21699e9d9cf6ed3e0ae3d"
   integrity sha512-Z7RY+Vuxh4fbeZm5JbEomNovHz8pwEoRVwa+31JD+o6pe+5IQIr+kpC5P6WNQkeEI3i5/0nHfb2nQDis3031mQ==

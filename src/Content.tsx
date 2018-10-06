@@ -1,7 +1,9 @@
 import * as React from 'react'
 import Page, { Grid, GridColumn } from '@atlaskit/page'
 import DynamicTable from '@atlaskit/dynamic-table'
-class Content extends React.Component<any, any> {
+import {  Checkbox } from '@atlaskit/checkbox'
+
+  class Content extends React.Component<any, any> {
 
     constructor(props: {}) {
         super(props);
@@ -25,6 +27,62 @@ class Content extends React.Component<any, any> {
                                     },
                                     {
                                         content: typeof results.rows.item(1)[item]
+                                    },
+                                    {
+                                        content: <Checkbox
+                                                value=""
+                                                label=""
+                                                name="checkbox-basic"
+                                                />
+                                    },
+                                    {
+                                        content: <Checkbox
+                                                value=""
+                                                label=""
+                                                name="checkbox-basic"
+                                                />
+                                    },
+                                    {
+                                        content: <Checkbox
+                                                value=""
+                                                label=""
+                                                name="checkbox-basic"
+                                                />
+                                    },
+                                    {
+                                        content: <Checkbox
+                                                value=""
+                                                label=""
+                                                name="checkbox-basic"
+                                                />
+                                    },
+                                    {
+                                        content: <Checkbox
+                                                value=""
+                                                label=""
+                                                name="checkbox-basic"
+                                                />
+                                    },
+                                    {
+                                        content: <Checkbox
+                                                value=""
+                                                label=""
+                                                name="checkbox-basic"
+                                                />
+                                    },
+                                    {
+                                        content: <Checkbox
+                                                value=""
+                                                label=""
+                                                name="checkbox-basic"
+                                                />
+                                    },
+                                    {
+                                        content: <Checkbox
+                                                value=""
+                                                label=""
+                                                name="checkbox-basic"
+                                                />
                                     }
                                 ]
                             }))
