@@ -188,7 +188,7 @@
   dependencies:
     prop-types "^15.5.10"
 
-"@atlaskit/tooltip@^12.1.1":
+"@atlaskit/tooltip@^12.1.1", "@atlaskit/tooltip@^12.1.2":
   version "12.1.2"
   resolved "https://registry.yarnpkg.com/@atlaskit/tooltip/-/tooltip-12.1.2.tgz#5f99db2eb7e9b7069a88a22dc7169512b469a27d"
   integrity sha512-DvbZHHkXkMN4PB7uTc0T5VIDCTYKq6YXtqHSPv6EbgoShyDGFNhEcPHT63a6987nMZhX/34Xt8K9o4jBZCbyIw==
