@@ -128,6 +128,20 @@
     "@atlaskit/field-base" "^11.0.7"
     "@atlaskit/theme" "^6.0.2"
 
+"@atlaskit/flag@^9.0.13":
+  version "9.0.13"
+  resolved "https://registry.yarnpkg.com/@atlaskit/flag/-/flag-9.0.13.tgz#847b389db6605fb906d74f1ee3dabec433790f78"
+  integrity sha512-lWsR6k5Lcqp2b3XrfHFez7hEA6MsYp7ogJ9ClWGb6sDo1py8IT/fXQlYgj2RIPox+U9Y8bNBUSiARbpE1V9DMQ==
+  dependencies:
+    "@atlaskit/analytics-next" "^3.0.6"
+    "@atlaskit/button" "^9.0.13"
+    "@atlaskit/icon" "^14.0.0"
+    "@atlaskit/portal" "^0.0.10"
+    "@atlaskit/theme" "^6.0.2"
+    babel-runtime "^6.26.0"
+    react-transition-group "^2.2.1"
+    uuid "^3.1.0"
+
 "@atlaskit/icon@^14.0.0":
   version "14.0.0"
   resolved "https://registry.yarnpkg.com/@atlaskit/icon/-/icon-14.0.0.tgz#2224412b17c78cb732eec26cd037a07f61ed7809"

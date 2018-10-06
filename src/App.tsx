@@ -14,6 +14,9 @@ import EditorLayoutThreeEqualIcon from '@atlaskit/icon/glyph/editor/layout-three
 import TableIcon from '@atlaskit/icon/glyph/table';
 import ArrowLeftIcon from '@atlaskit/icon/glyph/arrow-left';
 import ModalBox from './Modal'
+import Tick from '@atlaskit/icon/glyph/check-circle';
+import { AutoDismissFlag, FlagGroup } from '@atlaskit/flag';
+import { colors } from '@atlaskit/theme';
 import './App.css';
 import Content from './Content'
 class App extends React.Component<any, any> {
@@ -23,6 +26,8 @@ class App extends React.Component<any, any> {
       width: 304,
       db: undefined,
       item: undefined,
+      flags: [],
+      flagCount: 0,
       stack: [[]],
     };
   }
@@ -30,6 +35,37 @@ class App extends React.Component<any, any> {
   public componentDidMount() {
     this.updateData()
   }
+
+  public addFlag = (
+    title: string,
+    description: string,
+    type: string,
+    created?: number) => {
+
+
+    this.setState((state: any) => {
+      let icon
+      switch (type) {
+        case 'success': icon = <Tick label="Success icon" primaryColor={colors.G300} />
+          break
+      }
+      return {
+        flags: [{
+          title,
+          description,
+          icon,
+          created: created ? created : 123,
+          id: state.flags.length,
+          key: state.flags.length
+        }]
+      }
+    })
+  }
+
+  public dismissFlag = () => this.setState((state: any) => ({
+    flags: state.flags!.slice(1),
+    flagCount: state.flagCount - 1
+  }))
 
   public updateData = () => {
     this.setState({ stack: [[]] }, () => {
@@ -159,6 +195,7 @@ class App extends React.Component<any, any> {
       <LayerManager>
         <div>
           <ModalBox
+            addFlag={this.addFlag}
             isOpen={this.state.isOpen}
             updateData={this.updateData}
             onClose={() => this.setState({ isOpen: false })} />
@@ -186,6 +223,9 @@ class App extends React.Component<any, any> {
             <div style={{ margin: 'auto', fontSize: '11px', fontStyle: 'italic' }}>Version: 0.002</div>
           </Navigation>
           <Content db={this.state.db} item={this.state.item} />
+          <FlagGroup onDismissed={this.dismissFlag}>
+            {this.state.flags.map((flag: any, index: number) => <AutoDismissFlag key={index} {...flag} />)}
+          </FlagGroup>
         </div>
       </LayerManager>
     );

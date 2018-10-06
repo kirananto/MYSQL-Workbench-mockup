@@ -30,6 +30,7 @@ class ModalElement extends React.Component<any, any> {
         })
         this.props.updateData()
         this.props.onClose()
+        this.props.addFlag('Success', `successfully added the table`, 'success')
     }
     public render() {
         return (
