@@ -26,7 +26,7 @@ class ModalElement extends React.Component<any, any> {
     public createTable = () => {
         const db = (window as any).openDatabase(this.state.dbName, '1.0', 'Test DB', 2 * 1024 * 1024);
         db.transaction((tx: any) => {
-            tx.executeSql(`CREATE TABLE IF NOT EXISTS ${this.state.tableName} (${this.state.values})`)
+            tx.executeSql(`CREATE TABLE IF NOT EXISTS ${this.state.tableName} (${this.state.values})`) 
         })
         this.props.updateData()
         this.props.onClose()
@@ -94,13 +94,13 @@ class ModalElement extends React.Component<any, any> {
                             </GridColumn>
                         </Grid>
                         <div style={{ marginBottom: '1rem', float: 'right' }}>
-                            <div style={{float: 'left'}}>
+                            <div style={{ float: 'left' }}>
                                 <Button appearance="default" onClick={this.props.onClose}> Cancel</Button>
                             </div>
                             <div style={{ float: 'left', marginLeft: '1rem' }}>
                                 <Button appearance={(this.state.tableName !== '' && this.state.values[0] !== '') ? 'primary' : 'default'}
-                                onClick={(this.state.tableName !== '' && this.state.values[0] !== '') && this.createTable}
-                                style={{ marginLeft: '1rem' }}> Create Table</Button>
+                                    onClick={(this.state.tableName !== '' && this.state.values[0] !== '') && this.createTable}
+                                    style={{ marginLeft: '1rem' }}> Create Table</Button>
                             </div>
                         </div>
                     </Page>

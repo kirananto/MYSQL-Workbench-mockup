@@ -23,11 +23,7 @@ class App extends React.Component<any, any> {
       width: 304,
       db: undefined,
       item: undefined,
-      stack: [
-        [
-          
-        ],
-      ],
+      stack: [[]],
     };
   }
 
@@ -36,69 +32,75 @@ class App extends React.Component<any, any> {
   }
 
   public updateData = () => {
-    const db = (window as any).openDatabase('mydb', '1.0', 'Test DB', 2 * 1024 * 1024);
-    const autotrader = (window as any).openDatabase('autotrader', '1.0', 'Test DB', 2 * 1024 * 1024);
-    db.transaction((tx: any) => {
-      tx.executeSql('CREATE TABLE IF NOT EXISTS LOGS (id unique, log)')
-      tx.executeSql('INSERT INTO LOGS (id, log) VALUES (1, "foobar")')
-      tx.executeSql('INSERT INTO LOGS (id, log) VALUES (2, "logmsg")')
-    })
-    autotrader.transaction((tx: any) => {
-      tx.executeSql('CREATE TABLE IF NOT EXISTS SOMETHING1 (id unique, log)')
-      tx.executeSql('CREATE TABLE IF NOT EXISTS SOMETHING2 (idVal unique, logVal)')
-      tx.executeSql('CREATE TABLE IF NOT EXISTS SOME3THING2 (idVal13 unique, logVal2)')
-      tx.executeSql('INSERT INTO SOMETHING1 (id, log) VALUES (1, "foobarsome")')
-      tx.executeSql('INSERT INTO SOMETHING1 (id, log) VALUES (2, "logmsgsome")')
-      tx.executeSql('INSERT INTO SOMETHING2 (idVal, logVal) VALUES (1, "foobarasd")')
-      tx.executeSql('INSERT INTO SOMETHING2 (idVal, logVal) VALUES (2, "logmsgasd")')
-      tx.executeSql('INSERT INTO SOME3THING2 (idVal13, logVal2) VALUES (1, "foobarasd")')
-      tx.executeSql('INSERT INTO SOME3THING2 (idVal13, logVal2) VALUES (2, "logmsgad")')
-    })
+    this.setState({ stack: [[]] }, () => {
+      const db = (window as any).openDatabase('mydb', '1.0', 'Test DB', 2 * 1024 * 1024);
+      const autotrader = (window as any).openDatabase('autotrader', '1.0', 'Test DB', 2 * 1024 * 1024);
+      db.transaction((tx: any) => {
+        tx.executeSql('CREATE TABLE IF NOT EXISTS LOGS (id unique, log)')
+        tx.executeSql('INSERT INTO LOGS (id, log) VALUES (1, "foobar")')
+        tx.executeSql('INSERT INTO LOGS (id, log) VALUES (2, "logmsg")')
+      })
+      autotrader.transaction((tx: any) => {
+        tx.executeSql('CREATE TABLE IF NOT EXISTS SOMETHING1 (id unique, log)')
+        tx.executeSql('CREATE TABLE IF NOT EXISTS SOMETHING2 (idVal unique, logVal)')
+        tx.executeSql('CREATE TABLE IF NOT EXISTS SOME3THING2 (idVal13 unique, logVal2)')
+        tx.executeSql('INSERT INTO SOMETHING1 (id, log) VALUES (1, "foobarsome")')
+        tx.executeSql('INSERT INTO SOMETHING1 (id, log) VALUES (2, "logmsgsome")')
+        tx.executeSql('INSERT INTO SOMETHING2 (idVal, logVal) VALUES (1, "foobarasd")')
+        tx.executeSql('INSERT INTO SOMETHING2 (idVal, logVal) VALUES (2, "logmsgasd")')
+        tx.executeSql('INSERT INTO SOME3THING2 (idVal13, logVal2) VALUES (1, "foobarasd")')
+        tx.executeSql('INSERT INTO SOME3THING2 (idVal13, logVal2) VALUES (2, "logmsgad")')
+      })
 
-    autotrader.transaction((tx: any) => {
-      tx.executeSql('SELECT tbl_name from sqlite_master WHERE type = "table"', [], (tx2: any, results: any) => {
-        const rs :any = []
-        for(let i = 1; i< results.rows.length; i++ ) {
-          rs.push({ title: results.rows.item(i).tbl_name, type: 'table'})
-        }
-        this.setState((state: any) => {
-          return ({ stack: [
-            [ ...state.stack[0], {
-                title: 'autotrader',
-                type: 'database',
-                children:  rs
-              }
-            ]
-          ]})
-        })
+      autotrader.transaction((tx: any) => {
+        tx.executeSql('SELECT tbl_name from sqlite_master WHERE type = "table"', [], (tx2: any, results: any) => {
+          const rs: any = []
+          for (let i = 1; i < results.rows.length; i++) {
+            rs.push({ title: results.rows.item(i).tbl_name, type: 'table' })
+          }
+          this.setState((state: any) => {
+            return ({
+              stack: [
+                [...state.stack[0], {
+                  title: 'autotrader',
+                  type: 'database',
+                  children: rs
+                }
+                ]
+              ]
+            })
+          })
+        });
       });
-    });
 
-    db.transaction((tx: any) => {
-      tx.executeSql('SELECT tbl_name from sqlite_master WHERE type = "table"', [], (tx2: any, results: any) => {
-        const rs :any = []
-        for(let i = 1; i< results.rows.length; i++ ) {
-          rs.push({ title: results.rows.item(i).tbl_name, type: 'table'})
-        }
-        this.setState((state: any) => {
-          return ({ stack: [
-            [ ...state.stack[0], {
-                title: 'mydb',
-                type: 'database',
-                children:  rs
-              }
-            ]
-          ]})
-        })
+      db.transaction((tx: any) => {
+        tx.executeSql('SELECT tbl_name from sqlite_master WHERE type = "table"', [], (tx2: any, results: any) => {
+          const rs: any = []
+          for (let i = 1; i < results.rows.length; i++) {
+            rs.push({ title: results.rows.item(i).tbl_name, type: 'table' })
+          }
+          this.setState((state: any) => {
+            return ({
+              stack: [
+                [...state.stack[0], {
+                  title: 'mydb',
+                  type: 'database',
+                  children: rs
+                }
+                ]
+              ]
+            })
+          })
+        });
       });
-    });
+    })
   }
 
   public handleResize = (pr: { isOpen: boolean, width: number }) => this.setState(pr);
 
   public stackPush = (it: any, item: any) => {
-    if(it.type === 'database') {
-      this.setState({ db: it.title})
+    if (it.type === 'database') {
+      this.setState({ db: it.title })
     }
     const stack = [...this.state.stack, item];
     this.setState({ stack });
@@ -156,10 +158,10 @@ class App extends React.Component<any, any> {
     return (
       <LayerManager>
         <div>
-          <ModalBox 
+          <ModalBox
             isOpen={this.state.isOpen}
             updateData={this.updateData}
-            onClose={() => this.setState({ isOpen: false })}/>
+            onClose={() => this.setState({ isOpen: false })} />
           <Navigation
             globalTheme={presetThemes['siteSettings']}
             containerTheme={presetThemes['container']}
@@ -168,7 +170,7 @@ class App extends React.Component<any, any> {
             // containerHeaderComponent={NavigationTitle}
             globalCreateIcon={
               <Tooltip key="1" position="right" content="Create new table">
-                <CreateIcon label="search" onClick={() => this.setState({ isOpen: true})}/>
+                <CreateIcon label="search" onClick={() => this.setState({ isOpen: true })} />
               </Tooltip>
             }
             globalPrimaryIcon={
