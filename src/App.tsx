@@ -18,31 +18,77 @@ import Content from './Content'
 class App extends React.Component<any, any> {
   constructor(props: {}) {
     super(props);
-
     this.state = {
       width: 304,
       item: undefined,
       stack: [
         [
-          {
-            title: 'autotrader',
-            type: 'database',
-            children: [
-              {
-                title: 'at_buyer_details',
-                type: 'table',
-                children: [
-                  {
-                    title: 'Columns',
-                    type: 'column'
-                  }
-                ]
-              },
-            ],
-          },
+          
         ],
       ],
     };
+  }
+
+  public componentDidMount() {
+    const db = (window as any).openDatabase('mydb', '1.0', 'Test DB', 2 * 1024 * 1024);
+    const autotrader = (window as any).openDatabase('autotrader', '1.0', 'Test DB', 2 * 1024 * 1024);
+    db.transaction((tx: any) => {
+      tx.executeSql('CREATE TABLE IF NOT EXISTS LOGS (id unique, log)')
+      tx.executeSql('INSERT INTO LOGS (id, log) VALUES (1, "foobar")')
+      tx.executeSql('INSERT INTO LOGS (id, log) VALUES (2, "logmsg")')
+    })
+    autotrader.transaction((tx: any) => {
+      tx.executeSql('CREATE TABLE IF NOT EXISTS SOMETHING1 (id unique, log)')
+      tx.executeSql('CREATE TABLE IF NOT EXISTS SOMETHING2 (id unique, log)')
+      tx.executeSql('CREATE TABLE IF NOT EXISTS SOME3THING2 (id unique, log)')
+      tx.executeSql('INSERT INTO SOMETHING1 (id, log) VALUES (1, "foobarsome")')
+      tx.executeSql('INSERT INTO SOMETHING1 (id, log) VALUES (2, "logmsgsome")')
+      tx.executeSql('INSERT INTO SOMETHING2 (id, log) VALUES (1, "foobarasd")')
+      tx.executeSql('INSERT INTO SOMETHING2 (id, log) VALUES (2, "logmsgasd")')
+      tx.executeSql('INSERT INTO SOME3THING2 (id, log) VALUES (1, "foobarasd")')
+      tx.executeSql('INSERT INTO SOME3THING2 (id, log) VALUES (2, "logmsgad")')
+    })
+
+    autotrader.transaction((tx: any) => {
+      tx.executeSql('SELECT tbl_name from sqlite_master WHERE type = "table"', [], (tx2: any, results: any) => {
+        console.log(results);
+        const rs :any = []
+        for(let i = 1; i< results.rows.length; i++ ) {
+          rs.push({ title: results.rows.item(i).tbl_name, type: 'table'})
+        }
+        this.setState((state: any) => {
+          return ({ stack: [
+            [ ...state.stack[0], {
+                title: 'autotrader',
+                type: 'database',
+                children:  rs
+              }
+            ]
+          ]})
+        })
+      });
+    });
+
+    db.transaction((tx: any) => {
+      tx.executeSql('SELECT tbl_name from sqlite_master WHERE type = "table"', [], (tx2: any, results: any) => {
+        console.log(results);
+        const rs :any = []
+        for(let i = 1; i< results.rows.length; i++ ) {
+          rs.push({ title: results.rows.item(i).tbl_name, type: 'table'})
+        }
+        this.setState((state: any) => {
+          return ({ stack: [
+            [ ...state.stack[0], {
+                title: 'mydb',
+                type: 'database',
+                children:  rs
+              }
+            ]
+          ]})
+        })
+      });
+    });
+
   }
 
   public handleResize = (pr: { isOpen: boolean, width: number }) => this.setState(pr);
@@ -73,7 +119,7 @@ class App extends React.Component<any, any> {
 
     return [<Tooltip key="1" position="right" content="MySQL Workbench">
       <AkContainerTitle
-        icon={this.state.stack.length > 1 ? <ArrowLeftIcon label="back" /> : <JiraLabsIcon size="large" label="Atlassian" />} 
+        icon={this.state.stack.length > 1 ? <ArrowLeftIcon label="back" /> : <JiraLabsIcon size="large" label="Atlassian" />}
         onClick={this.state.stack.length > 1 && this.stackPop}
         text="MySQL Workbench"
       />
@@ -81,7 +127,7 @@ class App extends React.Component<any, any> {
   };
 
   public renderItem = (item: any) => {
-    const onClick = item.children ? (() => this.setState({ item: undefined }, () => this.stackPush(item.children))) : (() => this.setState({item}))
+    const onClick = item.children ? (() => this.setState({ item: undefined }, () => this.stackPush(item.children))) : (() => this.setState({ item }))
     let icon
     switch (item.type) {
       case 'database': icon = <TrayIcon label="db" />
@@ -126,9 +172,9 @@ class App extends React.Component<any, any> {
               stack={this.renderStack()}
               onAnimationEnd={(...args: any[]) => console.log('animation end', args)}
             />
-            <div style={{ margin: 'auto', fontSize: '11px', fontStyle: 'italic'}}>Version: 0.001</div>
+            <div style={{ margin: 'auto', fontSize: '11px', fontStyle: 'italic' }}>Version: 0.001</div>
           </Navigation>
-          <Content item={this.state.item}/>
+          <Content item={this.state.item} />
         </div>
       </LayerManager>
     );
