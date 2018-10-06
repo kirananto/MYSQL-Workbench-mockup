@@ -32,6 +32,10 @@ class App extends React.Component<any, any> {
   }
 
   public componentDidMount() {
+    this.updateData()
+  }
+
+  public updateData = () => {
     const db = (window as any).openDatabase('mydb', '1.0', 'Test DB', 2 * 1024 * 1024);
     const autotrader = (window as any).openDatabase('autotrader', '1.0', 'Test DB', 2 * 1024 * 1024);
     db.transaction((tx: any) => {
@@ -88,7 +92,6 @@ class App extends React.Component<any, any> {
         })
       });
     });
-
   }
 
   public handleResize = (pr: { isOpen: boolean, width: number }) => this.setState(pr);
@@ -155,6 +158,7 @@ class App extends React.Component<any, any> {
         <div>
           <ModalBox 
             isOpen={this.state.isOpen}
+            updateData={this.updateData}
             onClose={() => this.setState({ isOpen: false })}/>
           <Navigation
             globalTheme={presetThemes['siteSettings']}
