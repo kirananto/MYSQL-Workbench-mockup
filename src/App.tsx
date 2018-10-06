@@ -20,6 +20,7 @@ class App extends React.Component<any, any> {
     super(props);
     this.state = {
       width: 304,
+      db: undefined,
       item: undefined,
       stack: [
         [
@@ -39,19 +40,18 @@ class App extends React.Component<any, any> {
     })
     autotrader.transaction((tx: any) => {
       tx.executeSql('CREATE TABLE IF NOT EXISTS SOMETHING1 (id unique, log)')
-      tx.executeSql('CREATE TABLE IF NOT EXISTS SOMETHING2 (id unique, log)')
-      tx.executeSql('CREATE TABLE IF NOT EXISTS SOME3THING2 (id unique, log)')
+      tx.executeSql('CREATE TABLE IF NOT EXISTS SOMETHING2 (idVal unique, logVal)')
+      tx.executeSql('CREATE TABLE IF NOT EXISTS SOME3THING2 (idVal13 unique, logVal2)')
       tx.executeSql('INSERT INTO SOMETHING1 (id, log) VALUES (1, "foobarsome")')
       tx.executeSql('INSERT INTO SOMETHING1 (id, log) VALUES (2, "logmsgsome")')
-      tx.executeSql('INSERT INTO SOMETHING2 (id, log) VALUES (1, "foobarasd")')
-      tx.executeSql('INSERT INTO SOMETHING2 (id, log) VALUES (2, "logmsgasd")')
-      tx.executeSql('INSERT INTO SOME3THING2 (id, log) VALUES (1, "foobarasd")')
-      tx.executeSql('INSERT INTO SOME3THING2 (id, log) VALUES (2, "logmsgad")')
+      tx.executeSql('INSERT INTO SOMETHING2 (idVal, logVal) VALUES (1, "foobarasd")')
+      tx.executeSql('INSERT INTO SOMETHING2 (idVal, logVal) VALUES (2, "logmsgasd")')
+      tx.executeSql('INSERT INTO SOME3THING2 (idVal13, logVal2) VALUES (1, "foobarasd")')
+      tx.executeSql('INSERT INTO SOME3THING2 (idVal13, logVal2) VALUES (2, "logmsgad")')
     })
 
     autotrader.transaction((tx: any) => {
       tx.executeSql('SELECT tbl_name from sqlite_master WHERE type = "table"', [], (tx2: any, results: any) => {
-        console.log(results);
         const rs :any = []
         for(let i = 1; i< results.rows.length; i++ ) {
           rs.push({ title: results.rows.item(i).tbl_name, type: 'table'})
@@ -71,7 +71,6 @@ class App extends React.Component<any, any> {
 
     db.transaction((tx: any) => {
       tx.executeSql('SELECT tbl_name from sqlite_master WHERE type = "table"', [], (tx2: any, results: any) => {
-        console.log(results);
         const rs :any = []
         for(let i = 1; i< results.rows.length; i++ ) {
           rs.push({ title: results.rows.item(i).tbl_name, type: 'table'})
@@ -93,8 +92,10 @@ class App extends React.Component<any, any> {
 
   public handleResize = (pr: { isOpen: boolean, width: number }) => this.setState(pr);
 
-  public stackPush = (item: any) => {
-    console.log('item')
+  public stackPush = (it: any, item: any) => {
+    if(it.type === 'database') {
+      this.setState({ db: it.title})
+    }
     const stack = [...this.state.stack, item];
     this.setState({ stack });
   };
@@ -127,7 +128,7 @@ class App extends React.Component<any, any> {
   };
 
   public renderItem = (item: any) => {
-    const onClick = item.children ? (() => this.setState({ item: undefined }, () => this.stackPush(item.children))) : (() => this.setState({ item }))
+    const onClick = item.children ? (() => this.setState({ item: undefined }, () => this.stackPush(item, item.children))) : (() => this.setState({ item }))
     let icon
     switch (item.type) {
       case 'database': icon = <TrayIcon label="db" />
@@ -174,7 +175,7 @@ class App extends React.Component<any, any> {
             />
             <div style={{ margin: 'auto', fontSize: '11px', fontStyle: 'italic' }}>Version: 0.001</div>
           </Navigation>
-          <Content item={this.state.item} />
+          <Content db={this.state.db} item={this.state.item} />
         </div>
       </LayerManager>
     );
