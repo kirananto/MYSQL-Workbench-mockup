@@ -1,11 +1,14 @@
+import LayerManager from '@atlaskit/layer-manager'
 import * as React from 'react';
 import './App.css';
+
 
 import logo from './logo.svg';
 
 class App extends React.Component {
   public render() {
     return (
+      <LayerManager>
       <div className="App">
         <header className="App-header">
           <img src={logo} className="App-logo" alt="logo" />
@@ -15,6 +18,7 @@ class App extends React.Component {
           To get started, edit <code>src/App.tsx</code> and save to reload.
         </p>
       </div>
+      </LayerManager>
     );
   }
 }
