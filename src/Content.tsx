@@ -2,7 +2,8 @@ import * as React from 'react'
 import Page, { Grid, GridColumn } from '@atlaskit/page'
 import DynamicTable from '@atlaskit/dynamic-table'
 import {  Checkbox } from '@atlaskit/checkbox'
-
+import emptyImage from './block.png'
+import EmptyState from '@atlaskit/empty-state'
   class Content extends React.Component<any, any> {
 
     constructor(props: {}) {
@@ -94,13 +95,14 @@ import {  Checkbox } from '@atlaskit/checkbox'
     }
     public render() {
         return (<Page>
-            <Grid>
-                {this.props.item === undefined ? (<GridColumn medium={8}>
-                    <h1>Main heading</h1>
-                    <p>
-                        Welcome to MySQL workbench mockup
-                    </p>
-                </GridColumn>) : (<GridColumn medium={12}>
+            {this.props.item === undefined ? (
+                <EmptyState 
+                        header='WebSQL workbench'
+                        description={`Lorem ipsum is a pseudo-Latin text used in web design, 
+                                typography, layout, and printing in place of English to emphasise 
+                                design elements over content. It's also called placeholder (or filler) 
+                                text. It's a convenient tool for mock-ups.`}
+                        imageUrl={emptyImage} />) : (<Grid><GridColumn medium={12}>
                     <h1>{`Columns in ${this.props.item.title}`}</h1>
                     <DynamicTable
                         head={head}
@@ -115,8 +117,7 @@ import {  Checkbox } from '@atlaskit/checkbox'
                         onSort={() => console.log('onSort')}
                         onSetPage={() => console.log('onSetPage')}
                     />
-                </GridColumn>)}
-            </Grid>
+                </GridColumn></Grid>)}
         </Page>)
     }
 }
