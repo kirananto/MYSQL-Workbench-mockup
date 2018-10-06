@@ -4,9 +4,12 @@
   "private": true,
   "dependencies": {
     "@atlaskit/layer-manager": "^5.0.13",
+    "@types/react-redux": "^6.0.9",
     "react": "^16.5.2",
     "react-dom": "^16.5.2",
-    "react-scripts-ts": "3.1.0"
+    "react-redux": "^5.0.7",
+    "react-scripts-ts": "3.1.0",
+    "redux": "^4.0.0"
   },
   "scripts": {
     "start": "react-scripts-ts start",
