@@ -220,7 +220,8 @@ class App extends React.Component<any, any> {
               stack={this.renderStack()}
               onAnimationEnd={(...args: any[]) => console.log('animation end', args)}
             />
-            <div style={{ margin: 'auto', fontSize: '11px', fontStyle: 'italic' }}>Version: 0.002</div>
+            <div style={{ margin: 'auto', fontSize: '11px', fontStyle: 'italic' }}>Version: 0.003</div>
+            <div style={{ margin: 'auto', fontSize: '11px', fontStyle: 'italic' }}>Author: kirananto@gmail.com</div>
           </Navigation>
           <Content db={this.state.db} item={this.state.item} />
           <FlagGroup onDismissed={this.dismissFlag}>
