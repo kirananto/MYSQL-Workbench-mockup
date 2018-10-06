@@ -8,6 +8,7 @@
     "@atlaskit/empty-state": "^3.0.9",
     "@atlaskit/icon": "^14.0.0",
     "@atlaskit/layer-manager": "^5.0.13",
+    "@atlaskit/modal-dialog": "^7.0.2",
     "@atlaskit/navigation": "^33.2.0",
     "@atlaskit/page": "^8.0.5",
     "@atlaskit/tooltip": "^12.1.2",

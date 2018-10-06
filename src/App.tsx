@@ -13,6 +13,7 @@ import Tooltip from '@atlaskit/tooltip';
 import EditorLayoutThreeEqualIcon from '@atlaskit/icon/glyph/editor/layout-three-equal';
 import TableIcon from '@atlaskit/icon/glyph/table';
 import ArrowLeftIcon from '@atlaskit/icon/glyph/arrow-left';
+import ModalBox from './Modal'
 import './App.css';
 import Content from './Content'
 class App extends React.Component<any, any> {
@@ -152,6 +153,9 @@ class App extends React.Component<any, any> {
     return (
       <LayerManager>
         <div>
+          <ModalBox 
+            isOpen={this.state.isOpen}
+            onClose={() => this.setState({ isOpen: false })}/>
           <Navigation
             globalTheme={presetThemes['siteSettings']}
             containerTheme={presetThemes['container']}
@@ -160,7 +164,7 @@ class App extends React.Component<any, any> {
             // containerHeaderComponent={NavigationTitle}
             globalCreateIcon={
               <Tooltip key="1" position="right" content="Create new table">
-                <CreateIcon label="search" />
+                <CreateIcon label="search" onClick={() => this.setState({ isOpen: true})}/>
               </Tooltip>
             }
             globalPrimaryIcon={
@@ -173,7 +177,7 @@ class App extends React.Component<any, any> {
               stack={this.renderStack()}
               onAnimationEnd={(...args: any[]) => console.log('animation end', args)}
             />
-            <div style={{ margin: 'auto', fontSize: '11px', fontStyle: 'italic' }}>Version: 0.001</div>
+            <div style={{ margin: 'auto', fontSize: '11px', fontStyle: 'italic' }}>Version: 0.002</div>
           </Navigation>
           <Content db={this.state.db} item={this.state.item} />
         </div>

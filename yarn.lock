@@ -145,6 +145,24 @@
     raf-schd "^2.1.0"
     react-scrolllock "^3.0.1"
 
+"@atlaskit/modal-dialog@^7.0.2":
+  version "7.0.2"
+  resolved "https://registry.yarnpkg.com/@atlaskit/modal-dialog/-/modal-dialog-7.0.2.tgz#f437f516ef5fae1bfb96b458b85946e2ee99eb39"
+  integrity sha512-4LlVuY2cjgaDPn4F6TrIwgKrQvB6mUwdzRnDiYXW38G9aFzOGhDNTWQleVRwwFjRlNc4gX5422pBMJ8RPzgpeA==
+  dependencies:
+    "@atlaskit/analytics-next" "^3.0.6"
+    "@atlaskit/blanket" "^7.0.7"
+    "@atlaskit/button" "^9.0.13"
+    "@atlaskit/icon" "^14.0.0"
+    "@atlaskit/layer-manager" "^5.0.13"
+    "@atlaskit/portal" "^0.0.10"
+    "@atlaskit/theme" "^6.0.2"
+    prop-types "^15.5.10"
+    raf-schd "^2.1.0"
+    react-focus-lock "^1.11.3"
+    react-scrolllock "^3.0.1"
+    react-transition-group "^2.2.1"
+
 "@atlaskit/navigation@^33.2.0":
   version "33.2.0"
   resolved "https://registry.yarnpkg.com/@atlaskit/navigation/-/navigation-33.2.0.tgz#7f6c83a5b352459b42fca0a13b1d44f44c77a586"
