@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@atlaskit/icon": "^14.0.0",
     "@atlaskit/layer-manager": "^5.0.13",
     "@atlaskit/navigation": "^33.2.0",
     "@types/react-redux": "^6.0.9",

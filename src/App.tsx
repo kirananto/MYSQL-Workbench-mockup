@@ -4,6 +4,8 @@ import Navigation, {
   AkContainerNavigationNested,
 } from '@atlaskit/navigation'
 import * as React from 'react';
+import TrayIcon from '@atlaskit/icon/glyph/tray';
+import JiraLabsIcon from '@atlaskit/icon/glyph/jira/labs';
 import './App.css';
 
 class App extends React.Component<any, any> {
@@ -56,7 +58,7 @@ class App extends React.Component<any, any> {
     const onClick = item.children && (() => this.stackPush(item.children));
 
     return (
-      <AkNavigationItem text={item.title} onClick={onClick} key={item.title} />
+      <AkNavigationItem icon={item.children && <TrayIcon label="db"/>} text={item.title} onClick={onClick} key={item.title} />
     );
   };
 
@@ -67,7 +69,11 @@ class App extends React.Component<any, any> {
     return (
       <LayerManager>
         <div>
-          <Navigation containerHeaderComponent={this.renderHeader}>
+          <Navigation 
+          globalPrimaryIcon={
+              <JiraLabsIcon size="large" label="Atlassian" />
+            }
+          containerHeaderComponent={this.renderHeader}>
             <AkContainerNavigationNested
               stack={this.renderStack()}
               onAnimationEnd={(...args: any[]) => console.log('animation end', args)}
